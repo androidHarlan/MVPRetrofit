@@ -5,7 +5,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.jaydenxiao.common.base.BaseRxPresenter;
-import com.jaydenxiao.common.baseapp.BaseApplication;
+
+import com.jaydenxiao.common.exception.ExceptionHandle;
 import com.tentcoo.mvpretrofit.contract.NewsDetailContract;
 import com.tentcoo.mvpretrofit.http.RetrofitHttpUtlis;
 import com.tentcoo.mvpretrofit.model.GirlData;
@@ -29,11 +30,13 @@ public class NewsDetailPresenter extends BaseRxPresenter<NewsDetailContract.View
         RetrofitHttpUtlis.getInstance().subscribe(RetrofitHttpUtlis.getInstance().getMovieService().getPhotoList(RetrofitHttpUtlis.getCacheControl()), new Observer<GirlData>() {
             @Override
             public void onCompleted() {
+                mView.stopLoading();
             }
 
             @Override
             public void onError(Throwable e) {
-                Toast.makeText(BaseApplication.getAppContext(), "请求失败", Toast.LENGTH_SHORT).show();
+                mView.showErrorTip(ExceptionHandle.handleException(e).message);
+
             }
             @Override
             public void onNext(GirlData girlData) {

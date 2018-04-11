@@ -38,7 +38,7 @@ public interface ApiService {
     // baseUrl 需要符合标准，为空、""、或不合法将会报错
     @GET("cx_index")
     Observable<GirlData> getPhotoList(
-         @Header("Cache-Control") String cacheControl//不加载缓存
+         @Header("Cache-Control") String cacheControl//加载缓存
 
            );
 

@@ -197,7 +197,7 @@ public class RetrofitHttpUtlis {
 
             @Override
             public void onCompleted() {
-
+                observer.onCompleted();
             }
 
             @Override
